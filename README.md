@@ -7,6 +7,8 @@ Evaluation with a Cautionary Demonstration"* (under review). Its purpose is
 twofold: to reproduce every number in the paper, and to serve as a reusable
 **leakage-audit template** for network-based fraud-detection research.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22271884.svg)](https://doi.org/10.5281/zenodo.22271884)
+
 ## Design rules implemented here
 
 1. **Reveal-date discipline (features).** Fraud-exposure features at year *t*
@@ -83,8 +85,9 @@ the two designs are distinct and the findings are complementary.
 
 ## Citation
 
-Please cite the paper (details to be added on publication) and this
-repository via its Zenodo DOI (badge to be added on archiving).
+Please cite the paper (details to be added on publication) and this repository:
+
+> Woo, Jihwan. (2026). fraud-detection-leakage-audit: Leakage-controlled evaluation pipeline for network-based fraud detection (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.22271884
 
 ## License
 
