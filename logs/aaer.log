@@ -1,0 +1,8 @@
+scraped AAERs: 3,317 | coverage 1997-2026 | AAER no. 987-4598
+AAERs matched to at least one public-company CIK: 433 (13.1%) | distinct CIKs 235
+
+restatement-flag CIKs in window 1995-2026: fraud 323, sec_invest 1084, acct 13137
+AAER∩res_fraud: 14 (6.0% of AAER CIKs)
+AAER∩res_sec_investigation: 36 (15.3%)
+AAER∩any accounting restatement: 184 (78.3%)
+res_fraud NOT in AAER: 309 (expected: AAER list here covers 1997-2026 only + individuals excluded)

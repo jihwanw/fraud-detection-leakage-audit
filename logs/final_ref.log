@@ -1,0 +1,22 @@
+[C] industry adjustment
+  wrds attempt 0: (psycopg2.OperationalError) connection to server at "wrds-pgdata.wharton.upenn.edu" (165.123.60.118), port 9737 failed: FATAL:  PAM authentication failed for user "jihwanw"
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+  wrds attempt 1: (psycopg2.OperationalError) connection to server at "wrds-pgdata.wharton.upenn.edu" (165.123.60.118), port 9737 failed: FATAL:  PAM authentication failed for user "jihwanw"
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+  wrds attempt 2: (psycopg2.OperationalError) connection to server at "wrds-pgdata.wharton.upenn.edu" (165.123.60.118), port 9737 failed: FATAL:  PAM authentication failed for user "jihwanw"
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+  [C] SKIPPED: [Errno 2] No such file or directory: '/Users/jihwanw/PhD/drop/fraud_detection/rebuild/data/sic.parqu
+
+[D] homonym variants, common test sample
+  common firm-years: 138,790
+  V0: pos 37 | FIN 0.6506 | NET 0.6358 | Δ -0.0148
+  V1: pos 37 | FIN 0.6506 | NET 0.6590 | Δ +0.0084
+  V2: pos 37 | FIN 0.6506 | NET 0.6656 | Δ +0.0149
+
+[E] AAER-anchored alternative label
+  AAER-anchored positives: 382 (0.401%)
+  FIN       ROC=0.7355 (test pos 88)
+  FIN+NET4  ROC=0.7423 (test pos 88)

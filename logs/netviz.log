@@ -1,0 +1,8 @@
+year & nodes & edges & density(x1e4) & mean deg & max deg & clustering & giant comp % & components & fraud firms
+2008 & 9,735 & 12,542 & 2.65 & 2.58 & 58 & 0.189 & 42.8% & 4,560 & 104
+2013 & 9,155 & 15,403 & 3.68 & 3.36 & 49 & 0.193 & 52.2% & 3,631 & 115
+2018 & 8,251 & 14,020 & 4.12 & 3.40 & 90 & 0.177 & 46.0% & 3,731 & 135
+2023 & 8,378 & 12,364 & 3.52 & 2.95 & 32 & 0.191 & 59.3% & 2,948 & 122
+
+2018 giant component: 3,794 nodes, 8,442 edges, fraud in giant: 83
+saved fig5_network

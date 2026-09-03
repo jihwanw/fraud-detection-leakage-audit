@@ -1,0 +1,34 @@
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: divide by zero encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: invalid value encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: divide by zero encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: invalid value encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: divide by zero encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: invalid value encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: divide by zero encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: invalid value encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: divide by zero encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: invalid value encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: divide by zero encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+/Users/jihwanw/PhD/drop/fraud_detection/rebuild/code/03_baseline_eval.py:44: RuntimeWarning: invalid value encountered in divide
+  return np.where((b != 0) & np.isfinite(a) & np.isfinite(b), a / b, np.nan)
+analysis panel: 57,368 firm-years (2004-2024), 7,923 firms
+positives (fraud restatement in t+1): 107 (0.187%)  <- honest base rate
+temporal split: train 36,477 (86 pos) | test 18,069 (21 pos)
+financial only         logit   PR-AUC=0.0015  ROC-AUC=0.5673
+financial only         gbm     PR-AUC=0.0013  ROC-AUC=0.5313
+financial + network    logit   PR-AUC=0.0015  ROC-AUC=0.5908
+financial + network    gbm     PR-AUC=0.0011  ROC-AUC=0.3984
+
+random-classifier PR-AUC baseline = base rate = 0.0012
+Interpretation rule: network features 'add value' only if financial+network PR-AUC exceeds financial-only consistently.

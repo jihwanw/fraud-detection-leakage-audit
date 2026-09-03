@@ -1,0 +1,285 @@
+{
+ "_sources": {
+  "restatements": "recomputed from restatements.parquet",
+  "panel": "recomputed from funda_bao + network_panel_ext + restatements",
+  "topology": "recomputed by 17_network_visual.py -> topology_table.csv",
+  "network_periods": "panel_build.log per-year lines (02_build_panel.py)",
+  "fixed_split": "final.log (09_final_eval.py)",
+  "rolling": "final.log",
+  "seeds/dose": "referee.log (12), leak.log (10)",
+  "grid": "grid.log (13)",
+  "homonym/aaer_label": "final_ref.log (15 D,E)",
+  "industry": "final_ref2.log (15 C)",
+  "aaer_public": "aaer.log (14)",
+  "earlier_weighted_variant": "boot.log (07, weighted-edge panel)",
+  "boardex_trial_diag": "boardex_trial jr_wrds_org_composition, session 10 diagnostic",
+  "network_2018_giant": "netviz.log (17)"
+ },
+ "restatements": {
+  "n": 28060,
+  "firms": 13401,
+  "res_fraud": 343,
+  "res_fraud_pct_of_restatements": 1.22,
+  "res_sec_investigation": 1192,
+  "res_accounting": 27142
+ },
+ "directors": {
+  "events": 571754,
+  "board_member_rows": 290754
+ },
+ "panel": {
+  "firm_years": 95311,
+  "firms": 12320,
+  "fraud_pos": 298,
+  "fraud_base_pct": 0.313,
+  "broad_pos": 953,
+  "broad_base_pct": 1.0,
+  "early": {
+   "firm_years": 42361,
+   "pos": 176,
+   "base_pct": 0.42
+  },
+  "late": {
+   "firm_years": 52950,
+   "pos": 122,
+   "base_pct": 0.23
+  }
+ },
+ "topology": {
+  "2008": {
+   "nodes": 9735,
+   "edges": 12542,
+   "density_e4": 2.65,
+   "mean_deg": 2.58,
+   "max_deg": 58,
+   "clustering": 0.189,
+   "giant_pct": 42.8,
+   "components": 4560,
+   "fraud_firms": 104
+  },
+  "2013": {
+   "nodes": 9155,
+   "edges": 15403,
+   "density_e4": 3.68,
+   "mean_deg": 3.36,
+   "max_deg": 49,
+   "clustering": 0.193,
+   "giant_pct": 52.2,
+   "components": 3631,
+   "fraud_firms": 115
+  },
+  "2018": {
+   "nodes": 8251,
+   "edges": 14020,
+   "density_e4": 4.12,
+   "mean_deg": 3.4,
+   "max_deg": 90,
+   "clustering": 0.177,
+   "giant_pct": 46.0,
+   "components": 3731,
+   "fraud_firms": 135
+  },
+  "2023": {
+   "nodes": 8378,
+   "edges": 12364,
+   "density_e4": 3.52,
+   "mean_deg": 2.95,
+   "max_deg": 32,
+   "clustering": 0.191,
+   "giant_pct": 59.3,
+   "components": 2948,
+   "fraud_firms": 122
+  }
+ },
+ "network_periods": {
+  "2004_2013": {
+   "avg_firms": 8369,
+   "avg_edges": 10933,
+   "fraud_start": 71,
+   "fraud_end": 216
+  },
+  "2014_2024": {
+   "avg_firms": 8364,
+   "avg_edges": 13411,
+   "fraud_start": 225,
+   "fraud_end": 316
+  }
+ },
+ "fixed_split": {
+  "FIN": {
+   "roc": 0.6451,
+   "pr": 0.0051
+  },
+  "FIN_NET4": {
+   "roc": 0.6506,
+   "pr": 0.0045
+  },
+  "FIN_NET7": {
+   "roc": 0.6538,
+   "pr": 0.0058
+  },
+  "broad_FIN_roc": 0.7045,
+  "boot_net4": {
+   "d": 0.0057,
+   "lo": -0.018,
+   "hi": 0.0291
+  },
+  "boot_net7": {
+   "d": 0.0082,
+   "lo": -0.0195,
+   "hi": 0.0362
+  }
+ },
+ "rolling": {
+  "windows": [
+   "2012-14",
+   "2015-17",
+   "2018-20",
+   "2021-23"
+  ],
+  "pos": [
+   74,
+   51,
+   25,
+   20
+  ],
+  "fin_roc": [
+   0.692,
+   0.753,
+   0.765,
+   0.555
+  ],
+  "d_net4": [
+   -0.02,
+   0.022,
+   0.014,
+   0.028
+  ],
+  "mean_d_net4": 0.0109
+ },
+ "seeds": {
+  "rusboost": {
+   "mean": 0.0191,
+   "sd": 0.0157
+  },
+  "hgb": {
+   "mean": 0.0115,
+   "sd": 0.0235
+  },
+  "logit": {
+   "mean": 0.0023
+  },
+  "prec_top1_fin": 0.011,
+  "prec_top1_net": 0.014
+ },
+ "dose_response": {
+  "clean": 0.6612,
+  "t1": 0.6536,
+  "t2": 0.6621,
+  "t3": 0.6497,
+  "all": 0.6727,
+  "self_leak": 0.9911
+ },
+ "grid": {
+  "w3_unw": -0.0135,
+  "w3_wt": -0.0169,
+  "w4_unw": 0.0055,
+  "w4_wt": -0.0154,
+  "w5_unw": 0.0351,
+  "w5_wt": 0.0525
+ },
+ "grid_full": [
+  {
+   "fin": 0.658,
+   "net": 0.6445,
+   "d": -0.0135
+  },
+  {
+   "fin": 0.658,
+   "net": 0.6412,
+   "d": -0.0169
+  },
+  {
+   "fin": 0.6451,
+   "net": 0.6506,
+   "d": 0.0055
+  },
+  {
+   "fin": 0.6451,
+   "net": 0.6297,
+   "d": -0.0154
+  },
+  {
+   "fin": 0.6178,
+   "net": 0.6529,
+   "d": 0.0351
+  },
+  {
+   "fin": 0.6178,
+   "net": 0.6703,
+   "d": 0.0525
+  }
+ ],
+ "homonym_common": {
+  "V0": -0.0148,
+  "V1": 0.0084,
+  "V2": 0.0149,
+  "common_firm_years": 138790,
+  "test_pos": 37,
+  "names": {
+   "V0": 155536,
+   "V1": 152316,
+   "V2": 75341
+  }
+ },
+ "aaer_label": {
+  "pos": 382,
+  "base_pct": 0.401,
+  "FIN_roc": 0.7355,
+  "NET4_roc": 0.7423,
+  "test_pos": 88
+ },
+ "industry": {
+  "FIN_SIC": 0.6722,
+  "FIN_SIC_NET4": 0.6506,
+  "FIN_SIC_indadj": 0.6574
+ },
+ "aaer_public": {
+  "scraped": 3317,
+  "coverage": "1997-2026",
+  "matched_releases": 433,
+  "matched_pct": 13.1,
+  "matched_ciks": 235,
+  "overlap_fraud": 14,
+  "overlap_fraud_pct": 6.0,
+  "overlap_sec": 36,
+  "overlap_sec_pct": 15.3,
+  "overlap_acct": 184,
+  "overlap_acct_pct": 78.3
+ },
+ "homonym_full": {
+  "V0_names": 155536,
+  "V1_names": 152316,
+  "V2_names": 75341
+ },
+ "earlier_weighted_variant": {
+  "d": 0.0322,
+  "lo": 0.0115,
+  "hi": 0.0532
+ },
+ "baseline_lit": {
+  "bao_roc_reported": 0.72
+ },
+ "network_2018_giant": {
+  "nodes": 3794,
+  "edges": 8442,
+  "fraud_in_giant": 83
+ },
+ "boardex_trial_diag": {
+  "persons": 2815,
+  "companies": 113,
+  "false_split_pct": 0.0,
+  "false_merge_pct_firstlast": 0.43,
+  "false_merge_pct_fullname": 0.39
+ }
+}

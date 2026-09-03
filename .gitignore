@@ -1,0 +1,5 @@
+# Licensed data (WRDS: Audit Analytics, Compustat) must never be committed
+*.parquet
+!data/aaer_public.parquet
+__pycache__/
+venv/

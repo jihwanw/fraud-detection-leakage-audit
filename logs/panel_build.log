@@ -1,0 +1,25 @@
+board-member links: 274,771 rows, 155,536 names, 20,117 firms
+names at 5+ firms: 3,220 (2.07% of names) — potential homonyms, reported as limitation
+fraud restatement events: 334 firm-filings
+  2004: 3,137 firms, 2,140 edges, past-revealed fraud firms: 71
+  2005: 5,923 firms, 3,387 edges, past-revealed fraud firms: 92
+  2006: 7,550 firms, 5,442 edges, past-revealed fraud firms: 125
+  2007: 8,809 firms, 9,266 edges, past-revealed fraud firms: 145
+  2008: 9,735 firms, 12,542 edges, past-revealed fraud firms: 155
+  2009: 10,098 firms, 14,226 edges, past-revealed fraud firms: 168
+  2010: 9,961 firms, 15,488 edges, past-revealed fraud firms: 179
+  2011: 9,800 firms, 16,093 edges, past-revealed fraud firms: 187
+  2012: 9,520 firms, 15,342 edges, past-revealed fraud firms: 200
+  2013: 9,155 firms, 15,403 edges, past-revealed fraud firms: 216
+  2014: 8,894 firms, 15,168 edges, past-revealed fraud firms: 225
+  2015: 8,660 firms, 15,669 edges, past-revealed fraud firms: 238
+  2016: 8,286 firms, 15,938 edges, past-revealed fraud firms: 254
+  2017: 8,042 firms, 14,257 edges, past-revealed fraud firms: 269
+  2018: 8,251 firms, 14,020 edges, past-revealed fraud firms: 278
+  2019: 8,172 firms, 12,315 edges, past-revealed fraud firms: 287
+  2020: 8,114 firms, 11,556 edges, past-revealed fraud firms: 293
+  2021: 8,457 firms, 11,869 edges, past-revealed fraud firms: 301
+  2022: 8,496 firms, 12,354 edges, past-revealed fraud firms: 307
+  2023: 8,378 firms, 12,364 edges, past-revealed fraud firms: 311
+  2024: 8,258 firms, 12,012 edges, past-revealed fraud firms: 316
+saved network_panel.parquet: 175,696 firm-years

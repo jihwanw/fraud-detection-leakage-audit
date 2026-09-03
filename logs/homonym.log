@@ -1,0 +1,9 @@
+
+===== V0_baseline: 155,536 names, 274,772 links =====
+  panel 95,311 | test pos 45 | FIN 0.6451 | FIN+NET4 0.6506 | Δ +0.0055
+
+===== V1_drop5plus: 152,316 names, 246,065 links =====
+  panel 94,151 | test pos 45 | FIN 0.6544 | FIN+NET4 0.6569 | Δ +0.0025
+
+===== V2_middlereq: 75,341 names, 141,193 links =====
+  panel 82,464 | test pos 37 | FIN 0.6099 | FIN+NET4 0.6302 | Δ +0.0204

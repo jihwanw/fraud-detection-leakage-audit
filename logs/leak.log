@@ -1,0 +1,6 @@
+test pos 45
+LEAKAGE DEMONSTRATION (fixed split, fraud label):
+  FIN only                           ROC=0.6451 PR=0.0051
+  FIN + neighbor ratio (leak-free)   ROC=0.6612 PR=0.0037
+  FIN + neighbor ratio (LEAKY)       ROC=0.6727 PR=0.0036
+  FIN + leaky ratio + self flag      ROC=0.9911 PR=0.0792

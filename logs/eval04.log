@@ -1,0 +1,20 @@
+fraud spells: 342 (322 firms); broad: 1,460 (1,317 firms)
+panel: 57,368 firm-years, 7,923 firms
+ongoing-fraud positives: 239 (0.417%)
+broad-label positives:   664 (1.157%)
+
+===== target: label =====
+train 36,477 (201 pos) | test 18,069 (38 pos) | test base rate 0.0021
+  financial only         logit   PR-AUC=0.0044  ROC-AUC=0.5420
+  financial only         gbm     PR-AUC=0.0022  ROC-AUC=0.4435
+  financial + network    logit   PR-AUC=0.0043  ROC-AUC=0.5723
+  financial + network    gbm     PR-AUC=0.0021  ROC-AUC=0.4672
+
+===== target: label_broad =====
+train 36,477 (591 pos) | test 18,069 (73 pos) | test base rate 0.0040
+  financial only         logit   PR-AUC=0.0086  ROC-AUC=0.5332
+  financial only         gbm     PR-AUC=0.0061  ROC-AUC=0.5414
+  financial + network    logit   PR-AUC=0.0099  ROC-AUC=0.5488
+  financial + network    gbm     PR-AUC=0.0064  ROC-AUC=0.5896
+
+saved analysis_panel.parquet

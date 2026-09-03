@@ -1,0 +1,7 @@
+window | edges      | FIN ROC | NET ROC | Δ
+  3    | unweighted | 0.6580 | 0.6445 | -0.0135 (pos 45)
+  3    | weighted   | 0.6580 | 0.6412 | -0.0169 (pos 45)
+  4    | unweighted | 0.6451 | 0.6506 | +0.0055 (pos 45)
+  4    | weighted   | 0.6451 | 0.6297 | -0.0154 (pos 45)
+  5    | unweighted | 0.6178 | 0.6529 | +0.0351 (pos 45)
+  5    | weighted   | 0.6178 | 0.6703 | +0.0525 (pos 45)

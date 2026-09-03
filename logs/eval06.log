@@ -1,0 +1,19 @@
+Loading library list...
+Done
+pulling comp.funda raw items (Bao 2020 list)...
+202,096 firm-years, 21,490 firms
+saved funda_bao.parquet
+panel: 95,311 firm-years, 12,320 firms
+ongoing fraud: 298 (0.313%) | broad: 953 (1.000%)
+
+===== label | train pos 253 | test pos 45 | test base 0.0015 =====
+  financial-28             rusboost  PR-AUC=0.0051  ROC-AUC=0.6451
+  financial-28             hgb       PR-AUC=0.0028  ROC-AUC=0.5918
+  financial-28 + network   rusboost  PR-AUC=0.0050  ROC-AUC=0.6772
+  financial-28 + network   hgb       PR-AUC=0.0035  ROC-AUC=0.6273
+
+===== label_broad | train pos 855 | test pos 98 | test base 0.0032 =====
+  financial-28             rusboost  PR-AUC=0.0078  ROC-AUC=0.7045
+  financial-28             hgb       PR-AUC=0.0156  ROC-AUC=0.6376
+  financial-28 + network   rusboost  PR-AUC=0.0073  ROC-AUC=0.7001
+  financial-28 + network   hgb       PR-AUC=0.0085  ROC-AUC=0.6729
