@@ -1,0 +1,53 @@
+saved -> /Users/jihwanw/PhD/drop/fraud_detection/rebuild/results/paper_numbers.json
+  OK panel firm-years: 95,311
+  OK panel firms: 12,320
+  OK fraud positives: (298 positive firm years)
+  OK fraud base rate: 0.31 percent
+  OK broad positives: (953)
+  OK restatement records: 28,060
+  OK fraud restatements: 343
+  OK director events: 571,754
+  OK board-member rows: 290,754
+  OK early firm-years: 42,361
+  OK late firm-years: 52,950
+  OK early base rate: 0.42\%
+  OK late base rate: 0.23\%
+  OK FIN ROC: 0.6451
+  OK NET4 ROC: 0.6506
+  OK NET7 ROC: 0.6538
+  OK broad baseline: 0.705
+  OK AAER baseline: 0.736
+  OK clean dose: 0.661
+  OK all-history dose: 0.673
+  OK self leakage: 0.991
+  OK grid minimum: $-0.017$
+  OK grid maximum: $+0.052$
+  OK industry baseline: 0.672
+  OK industry network: 0.651
+  OK homonym V0: $-0.015$
+  OK homonym V2: $+0.015$
+  OK AAER scraped: 3,317
+  OK AAER matched CIKs: 235
+  OK AAER fraud overlap: 6 percent
+  OK AAER accounting overlap: 78 percent
+  OK AAER label positives: (382 positives
+  OK giant-component nodes: 3,794
+  OK giant-component edges: 8,442
+  OK rolling mean: $+0.011$
+  OK NET4 bootstrap interval: [-0.024, +0.035]
+  OK weighted variant: $+0.032$
+  OK trial persons: 2,815
+  OK trial merge range: 0.39--0.43\%
+  OK NET7 bootstrap interval: [-0.029, +0.045]
+  OK missingness zero row: Zero fill (primary; Bao et al.) & 30,462 & 45 & 0.6451 & 0.6506
+  OK missingness median row: Train-median imputation & 30,462 & 45 & 0.6212 & 0.6769
+  OK missingness indicator row: Train median + missingness indicators & 30,462 & 45 & 0.6589 & 0.6658
+  OK missingness complete-case row: Complete cases & 18,915 & 27 & 0.5395 & 0.5653
+  OK construction-grid cell 1: 0.6580 & 0.6445
+  OK construction-grid cell 2: 0.6580 & 0.6412
+  OK construction-grid cell 3: 0.6451 & 0.6506
+  OK construction-grid cell 4: 0.6451 & 0.6297
+  OK construction-grid cell 5: 0.6178 & 0.6529
+  OK construction-grid cell 6: 0.6178 & 0.6703
+
+50/50 JSON-derived checks present

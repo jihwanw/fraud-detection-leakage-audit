@@ -127,4 +127,35 @@ Window & Edges & FIN ROC & FIN$+$NET4 ROC & $\\Delta$ \\\\
 \\end{{tabular}}
 \\end{{table}}
 """)
+# ---------------- tab_missing (Supplementary S2) ----------------
+M = J["missingness"]["methods"]
+method_labels = [
+    ("zero", "Zero fill (primary; Bao et al.)"),
+    ("train_median", "Train-median imputation"),
+    ("median_plus_indicators", "Train median + missingness indicators"),
+    ("complete_case", "Complete cases"),
+]
+missing_rows = "\n".join(
+    f"{label} & {M[key]['test_rows']:,} & {M[key]['test_positives']} & "
+    f"{M[key]['FIN']['roc']:.4f} & {M[key]['FIN_NET4']['roc']:.4f} & "
+    f"${M[key]['delta_roc_seed42']:+.4f}$ & "
+    f"[{M[key]['cluster_bootstrap']['lo']:+.4f}, {M[key]['cluster_bootstrap']['hi']:+.4f}] \\\\"
+    for key, label in method_labels
+)
+w("tab_missing.tex", f"""\\begin{{table}}[h!]
+\\centering
+\\caption*{{\\textbf{{Supplementary Table S2.}} Missing-data specification sensitivity (fixed temporal split, fraud label, RUSBoost, seed 42). Medians are fitted on the training period only. Confidence intervals use 2,000 paired cluster-bootstrap resamples by firm.}}
+\\small
+\\resizebox{{\\textwidth}}{{!}}{{%
+\\begin{{tabular}}{{lrrrrrr}}
+\\toprule
+Method & Test $N$ & Pos. & FIN ROC & FIN$+$NET4 ROC & $\\Delta$ROC & 95\\% CI \\\\
+\\midrule
+{missing_rows}
+\\bottomrule
+\\end{{tabular}}%
+}}
+\\end{{table}}
+""")
+
 print("all tables generated from JSON")

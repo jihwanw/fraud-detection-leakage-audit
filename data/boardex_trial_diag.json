@@ -1,0 +1,21 @@
+{
+  "source": "boardex_trial.jr_wrds_org_composition",
+  "rows": 3938,
+  "persons": 2815,
+  "companies": 113,
+  "full_name": {
+    "name_keys": 2803,
+    "false_split_ids": 0,
+    "false_split_pct": 0.0,
+    "false_merge_keys": 11,
+    "false_merge_pct": 0.3924
+  },
+  "first_last": {
+    "name_keys": 2802,
+    "false_split_ids": 0,
+    "false_split_pct": 0.0,
+    "false_merge_keys": 12,
+    "false_merge_pct": 0.4283
+  },
+  "note": "Aggregate diagnostics only; licensed row-level trial data are not saved."
+}

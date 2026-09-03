@@ -1,0 +1,104 @@
+{
+  "panel_rows": 95311,
+  "rows_with_any_missing_financial_feature": 36381,
+  "missing_row_pct": 38.17,
+  "methods": {
+    "zero": {
+      "panel_rows": 95311,
+      "train_rows": 60072,
+      "test_rows": 30462,
+      "test_positives": 45,
+      "FIN": {
+        "roc": 0.6451,
+        "pr": 0.0051
+      },
+      "FIN_NET4": {
+        "roc": 0.6506,
+        "pr": 0.0045
+      },
+      "delta_roc_seed42": 0.0055,
+      "seed_delta_mean": 0.0191,
+      "seed_delta_sd": 0.0157,
+      "cluster_bootstrap": {
+        "mean": 0.0058,
+        "lo": -0.024,
+        "hi": 0.0349,
+        "p_gt_zero": 0.659,
+        "replicates": 2000
+      }
+    },
+    "train_median": {
+      "panel_rows": 95311,
+      "train_rows": 60072,
+      "test_rows": 30462,
+      "test_positives": 45,
+      "FIN": {
+        "roc": 0.6212,
+        "pr": 0.0042
+      },
+      "FIN_NET4": {
+        "roc": 0.6769,
+        "pr": 0.0056
+      },
+      "delta_roc_seed42": 0.0557,
+      "seed_delta_mean": 0.0271,
+      "seed_delta_sd": 0.0195,
+      "cluster_bootstrap": {
+        "mean": 0.0549,
+        "lo": 0.017,
+        "hi": 0.0947,
+        "p_gt_zero": 0.998,
+        "replicates": 2000
+      }
+    },
+    "median_plus_indicators": {
+      "panel_rows": 95311,
+      "train_rows": 60072,
+      "test_rows": 30462,
+      "test_positives": 45,
+      "FIN": {
+        "roc": 0.6589,
+        "pr": 0.0034
+      },
+      "FIN_NET4": {
+        "roc": 0.6658,
+        "pr": 0.0068
+      },
+      "delta_roc_seed42": 0.0069,
+      "seed_delta_mean": 0.0081,
+      "seed_delta_sd": 0.0131,
+      "cluster_bootstrap": {
+        "mean": 0.0066,
+        "lo": -0.0328,
+        "hi": 0.0485,
+        "p_gt_zero": 0.63,
+        "replicates": 2000
+      }
+    },
+    "complete_case": {
+      "panel_rows": 58930,
+      "train_rows": 37079,
+      "test_rows": 18915,
+      "test_positives": 27,
+      "FIN": {
+        "roc": 0.5395,
+        "pr": 0.0078
+      },
+      "FIN_NET4": {
+        "roc": 0.5653,
+        "pr": 0.0059
+      },
+      "delta_roc_seed42": 0.0258,
+      "seed_delta_mean": 0.0039,
+      "seed_delta_sd": 0.0128,
+      "cluster_bootstrap": {
+        "mean": 0.0256,
+        "lo": -0.0344,
+        "hi": 0.0846,
+        "p_gt_zero": 0.802,
+        "replicates": 2000
+      }
+    }
+  }
+}
+saved -> /Users/jihwanw/PhD/drop/fraud_detection/rebuild/results/missingness_sensitivity.json

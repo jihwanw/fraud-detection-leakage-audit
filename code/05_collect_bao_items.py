@@ -11,19 +11,9 @@ import getpass
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(BASE, "data")
 
-u = p = None
-for line in open("/Users/jihwanw/PhD/.wrds_config"):
-    if "USERNAME" in line:
-        u = line.split("=")[1].strip()
-    elif "PASSWORD" in line:
-        p = line.split("=")[1].strip()
-os.environ["PGPASSWORD"] = p
-builtins.input = lambda x="": u
-getpass.getpass = lambda x="": p
+from wrds_auth import connect
 
-import wrds  # noqa: E402
-
-db = wrds.Connection(wrds_username=u)
+db = connect()
 print("pulling comp.funda raw items (Bao 2020 list)...")
 fund = db.raw_sql("""
     SELECT gvkey, datadate, fyear, cik, tic,

@@ -161,19 +161,16 @@ for horizon in [0, 1, 2, 3, 99]:
 
 # ========== C. industry adjustment ==========
 print("\n[C] industry adjustment (1-digit SIC)", flush=True)
-u = p = None
-for line in open("/Users/jihwanw/PhD/.wrds_config"):
-    if "USERNAME" in line:
-        u = line.split("=")[1].strip()
-    elif "PASSWORD" in line:
-        p = line.split("=")[1].strip()
-os.environ["PGPASSWORD"] = p
-builtins.input = lambda x="": u
-getpass.getpass = lambda x="": p
-import wrds  # noqa: E402
-db = wrds.Connection(wrds_username=u)
-sic = db.raw_sql("SELECT gvkey, sic FROM comp.company")
-db.close()
+from wrds_auth import connect
+
+sic_path = os.path.join(DATA, "sic.parquet")
+if os.path.exists(sic_path):
+    sic = pd.read_parquet(sic_path)
+else:
+    db = connect()
+    sic = db.raw_sql("SELECT gvkey, sic FROM comp.company")
+    db.close()
+    sic.to_parquet(sic_path)
 Mi = M.merge(sic, on="gvkey", how="left")
 Mi["sic1"] = Mi.sic.astype(str).str[0].fillna("9")
 ind_mean = Mi.groupby(["sic1", "year"]).fraud_neighbor_ratio.transform("mean")

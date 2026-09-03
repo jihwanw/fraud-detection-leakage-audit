@@ -24,17 +24,7 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(BASE, "data")
 os.makedirs(DATA, exist_ok=True)
 
-u = p = None
-for line in open("/Users/jihwanw/PhD/.wrds_config"):
-    if "USERNAME" in line:
-        u = line.split("=")[1].strip()
-    elif "PASSWORD" in line:
-        p = line.split("=")[1].strip()
-os.environ["PGPASSWORD"] = p
-builtins.input = lambda x="": u
-getpass.getpass = lambda x="": p
-
-import wrds  # noqa: E402
+from wrds_auth import connect
 
 log = open(os.path.join(DATA, "collection_log.txt"), "w")
 
@@ -46,7 +36,7 @@ def say(msg):
 
 
 say(f"collection started {datetime.datetime.now()}")
-db = wrds.Connection(wrds_username=u)
+db = connect()
 
 # ---------- 1. Restatements with honest, separate labels ----------
 if os.path.exists(f"{DATA}/restatements.parquet"):

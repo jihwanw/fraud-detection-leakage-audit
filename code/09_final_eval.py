@@ -94,16 +94,20 @@ for target in ["label", "label_broad"]:
     for name, (roc, pr, _) in r.items():
         print(f"  {name:9s} ROC={roc:.4f} PR={pr:.4f}")
     y = test[target].values
+    clusters = {cik: np.asarray(indices, dtype=int)
+                for cik, indices in test.groupby("cik").indices.items()}
+    firm_ids = np.asarray(list(clusters))
     for cand in ["FIN+NET4", "FIN+NET7"]:
         d = []
         for _ in range(2000):
-            idx = rng.randint(0, len(y), len(y))
+            sampled_firms = rng.choice(firm_ids, size=len(firm_ids), replace=True)
+            idx = np.concatenate([clusters[cik] for cik in sampled_firms])
             if y[idx].sum() < 5:
                 continue
             d.append(roc_auc_score(y[idx], r[cand][2][idx])
                      - roc_auc_score(y[idx], r["FIN"][2][idx]))
         d = np.array(d)
-        print(f"  Δ({cand}-FIN) ROC: {d.mean():+.4f} "
+        print(f"  cluster Δ({cand}-FIN) ROC: {d.mean():+.4f} "
               f"[{np.percentile(d, 2.5):+.4f}, {np.percentile(d, 97.5):+.4f}] "
               f"P(>0)={np.mean(d > 0):.3f}")
 

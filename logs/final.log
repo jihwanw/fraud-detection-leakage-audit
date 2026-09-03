@@ -1,41 +1,18 @@
-fraud-firm director links (joined before reveal): 2,083
-  2004: firms 3,137, past-fraud 71, assoc-directors 7
-  2005: firms 5,923, past-fraud 92, assoc-directors 23
-  2006: firms 7,550, past-fraud 125, assoc-directors 111
-  2007: firms 8,809, past-fraud 145, assoc-directors 163
-  2008: firms 9,735, past-fraud 155, assoc-directors 229
-  2009: firms 10,098, past-fraud 168, assoc-directors 309
-  2010: firms 9,961, past-fraud 179, assoc-directors 338
-  2011: firms 9,800, past-fraud 187, assoc-directors 381
-  2012: firms 9,520, past-fraud 200, assoc-directors 479
-  2013: firms 9,155, past-fraud 216, assoc-directors 639
-  2014: firms 8,894, past-fraud 225, assoc-directors 743
-  2015: firms 8,660, past-fraud 238, assoc-directors 908
-  2016: firms 8,286, past-fraud 254, assoc-directors 1,074
-  2017: firms 8,042, past-fraud 269, assoc-directors 1,217
-  2018: firms 8,251, past-fraud 278, assoc-directors 1,326
-  2019: firms 8,172, past-fraud 287, assoc-directors 1,490
-  2020: firms 8,114, past-fraud 293, assoc-directors 1,625
-  2021: firms 8,457, past-fraud 301, assoc-directors 1,717
-  2022: firms 8,496, past-fraud 307, assoc-directors 1,796
-  2023: firms 8,378, past-fraud 311, assoc-directors 1,875
-  2024: firms 8,258, past-fraud 316, assoc-directors 1,922
-saved network_panel_ext.parquet: 175,696 rows
 panel 95,311 firm-years | fraud 298 (0.313%) | broad 953 (1.000%)
 
 ===== FIXED SPLIT | label | test pos 45 =====
   FIN       ROC=0.6451 PR=0.0051
   FIN+NET4  ROC=0.6506 PR=0.0045
   FIN+NET7  ROC=0.6538 PR=0.0058
-  Δ(FIN+NET4-FIN) ROC: +0.0057 [-0.0180, +0.0291] P(>0)=0.699
-  Δ(FIN+NET7-FIN) ROC: +0.0082 [-0.0195, +0.0362] P(>0)=0.713
+  cluster Δ(FIN+NET4-FIN) ROC: +0.0058 [-0.0240, +0.0349] P(>0)=0.659
+  cluster Δ(FIN+NET7-FIN) ROC: +0.0088 [-0.0285, +0.0450] P(>0)=0.689
 
 ===== FIXED SPLIT | label_broad | test pos 98 =====
   FIN       ROC=0.7045 PR=0.0078
   FIN+NET4  ROC=0.7033 PR=0.0093
   FIN+NET7  ROC=0.7074 PR=0.0084
-  Δ(FIN+NET4-FIN) ROC: -0.0012 [-0.0231, +0.0217] P(>0)=0.462
-  Δ(FIN+NET7-FIN) ROC: +0.0032 [-0.0175, +0.0242] P(>0)=0.612
+  cluster Δ(FIN+NET4-FIN) ROC: -0.0010 [-0.0302, +0.0269] P(>0)=0.484
+  cluster Δ(FIN+NET7-FIN) ROC: +0.0031 [-0.0204, +0.0257] P(>0)=0.619
 
 ===== ROLLING ORIGIN (label) =====
   2012-2014: pos  74 | FIN 0.692 | +NET4 Δ-0.020 | +NET7 Δ-0.030

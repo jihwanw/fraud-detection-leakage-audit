@@ -75,19 +75,10 @@ print("[C] industry adjustment", flush=True)
 try:
     sic_path = f"{DATA}/sic.parquet"
     if not os.path.exists(sic_path):
-        u = p = None
-        for line in open("/Users/jihwanw/PhD/.wrds_config"):
-            if "USERNAME" in line:
-                u = line.split("=")[1].strip()
-            elif "PASSWORD" in line:
-                p = line.split("=")[1].strip()
-        os.environ["PGPASSWORD"] = p
-        builtins.input = lambda x="": u
-        getpass.getpass = lambda x="": p
-        import wrds
+        from wrds_auth import connect
         for attempt in range(3):
             try:
-                db = wrds.Connection(wrds_username=u)
+                db = connect()
                 sic = db.raw_sql("SELECT gvkey, sic FROM comp.company")
                 db.close()
                 sic.to_parquet(sic_path)

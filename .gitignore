@@ -1,5 +1,14 @@
 # Licensed data (WRDS: Audit Analytics, Compustat) must never be committed
 *.parquet
 !data/aaer_public.parquet
+
+# Credentials and local environments
+.env
+*.ini
+.wrds_config
 __pycache__/
+*.pyc
 venv/
+
+# Generated manuscript artifacts (manuscript is not public during review)
+paper/

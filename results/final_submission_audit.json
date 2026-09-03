@@ -1,0 +1,96 @@
+{
+  "status": "PASS",
+  "source_manifest": {
+    "restatements.parquet": {
+      "bytes": 324157,
+      "sha256": "a2b75b8124b3bb5404f8885876b0f20a3b58c98bc30e570cecf2b9d2b332dc0b",
+      "rows": 28060,
+      "columns": 10
+    },
+    "directors.parquet": {
+      "bytes": 11859348,
+      "sha256": "30fb81b8cc754af6f8ef621c620f515752767ecfd78c341af6baa3ca24d8be02",
+      "rows": 571754,
+      "columns": 12
+    },
+    "funda_bao.parquet": {
+      "bytes": 24721856,
+      "sha256": "1ee796f034173a4f956c8bef223ce6311116dc810481f767dd7018078ebdad46",
+      "rows": 202096,
+      "columns": 33
+    },
+    "network_panel_ext.parquet": {
+      "bytes": 1670935,
+      "sha256": "ff6371102251bfa79f549f839dde2fb3ad1822d2d0423e323205ba9737939f97",
+      "rows": 175696,
+      "columns": 9
+    }
+  },
+  "data_checks": {
+    "analysis_firm_years": 95311,
+    "duplicate_analysis_keys": 0,
+    "fraud_restatement_records": 343,
+    "positive_spell_rows_checked": 916,
+    "label_reveal_violations": 0,
+    "network_ratio_range_violations": 0
+  },
+  "submission_checks": {
+    "placeholder_hits": 0,
+    "references": 45,
+    "undefined_citations": 0,
+    "uncited_references": 0,
+    "citation_order_matches_bibliography": true,
+    "numeric_cross_checks": 50
+  },
+  "randomness_audit": {
+    "synthetic_generator_calls": 0,
+    "allowed_reproducibility_or_inference_calls": [
+      {
+        "file": "03_baseline_eval.py",
+        "line": 23,
+        "call": "RandomState"
+      },
+      {
+        "file": "07_bootstrap_test.py",
+        "line": 16,
+        "call": "RandomState"
+      },
+      {
+        "file": "07_bootstrap_test.py",
+        "line": 77,
+        "call": "choice"
+      },
+      {
+        "file": "09_final_eval.py",
+        "line": 19,
+        "call": "RandomState"
+      },
+      {
+        "file": "09_final_eval.py",
+        "line": 103,
+        "call": "choice"
+      },
+      {
+        "file": "17_network_visual.py",
+        "line": 81,
+        "call": "spring_layout"
+      },
+      {
+        "file": "17_network_visual.py",
+        "line": 112,
+        "call": "spring_layout"
+      },
+      {
+        "file": "19_missingness_sensitivity.py",
+        "line": 40,
+        "call": "RandomState"
+      },
+      {
+        "file": "19_missingness_sensitivity.py",
+        "line": 49,
+        "call": "choice"
+      }
+    ],
+    "interpretation": "Randomness is limited to learner seeds, cluster bootstrap sampling, and graph layout; it does not generate source variables or labels."
+  }
+}

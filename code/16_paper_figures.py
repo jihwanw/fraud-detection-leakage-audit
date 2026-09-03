@@ -75,7 +75,7 @@ plt.close()
 # ---- Fig 4: homonym monotonicity (final_ref.log [D]) ----
 rules = ["Full-name\nmatching", "Drop names\nat $\\geq$5 firms", "Require\nmiddle name"]
 H = J["homonym_common"]
-dd = [H["V0"], H["V1"], H["V2"]]
+dd = [H["V0"]["d"], H["V1"]["d"], H["V2"]["d"]]
 fig, ax = plt.subplots(figsize=(5.5, 3.6))
 ax.bar(range(3), dd, color=["#b03030" if x < 0 else "#2b7a3e" for x in dd])
 ax.axhline(0, c="gray", lw=1)

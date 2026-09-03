@@ -70,9 +70,12 @@ print(f"point estimates: ROC fin={roc_auc_score(y, s_fin):.4f} "
       f"net={average_precision_score(y, s_net):.4f}")
 
 d_roc, d_pr = [], []
-n = len(y)
+clusters = {cik: np.asarray(indices, dtype=int)
+            for cik, indices in test.groupby("cik").indices.items()}
+firm_ids = np.asarray(list(clusters))
 for _ in range(2000):
-    idx = rng.randint(0, n, n)
+    sampled_firms = rng.choice(firm_ids, size=len(firm_ids), replace=True)
+    idx = np.concatenate([clusters[cik] for cik in sampled_firms])
     if y[idx].sum() < 5:
         continue
     d_roc.append(roc_auc_score(y[idx], s_net[idx]) - roc_auc_score(y[idx], s_fin[idx]))
