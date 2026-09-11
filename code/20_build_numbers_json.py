@@ -289,8 +289,11 @@ J["dose_response"] = {
     for name, pattern in dose_patterns.items()
 }
 leak_log = read_log("leak.log")
+J["dose_response"]["self_leak_clean"] = fnum(
+    match(r"clean ratio \+ self flag\s+ROC=([\d.]+)", leak_log, "self leakage (clean)").group(1)
+)
 J["dose_response"]["self_leak"] = fnum(
-    match(r"self flag\s+ROC=([\d.]+)", leak_log, "self leakage").group(1)
+    match(r"leaky ratio \+ self flag\s+ROC=([\d.]+)", leak_log, "self leakage (leaky)").group(1)
 )
 J["_sources"]["seeds/dose"] = "data/referee.log (code/12) + data/leak.log (code/10)"
 

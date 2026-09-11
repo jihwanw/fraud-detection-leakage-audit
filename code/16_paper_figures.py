@@ -17,19 +17,19 @@ J = json.load(open(os.path.join(BASE, "results", "paper_numbers.json")))
 
 # ---- Fig 1: leakage dose-response (referee.log [B] + leak.log self-leak) ----
 labels = ["Leak-free\n(reveal $<t$)", "reveal\n$<t{+}1$", "reveal\n$<t{+}2$",
-          "reveal\n$<t{+}3$", "All fraud\n(dates ignored)", "+ own future\nrevelation"]
+          "reveal\n$<t{+}3$", "All fraud\n(dates ignored)", "Leak-free\n+ own flag", "All fraud\n+ own flag"]
 D = J["dose_response"]
-vals = [D["clean"], D["t1"], D["t2"], D["t3"], D["all"], D["self_leak"]]
-colors = ["#2b7a3e"] + ["#b8a83a"] * 4 + ["#b03030"]
+vals = [D["clean"], D["t1"], D["t2"], D["t3"], D["all"], D["self_leak_clean"], D["self_leak"]]
+colors = ["#2b7a3e"] + ["#b8a83a"] * 4 + ["#b03030"] * 2
 fig, ax = plt.subplots(figsize=(8, 4.2))
-bars = ax.bar(range(6), vals, color=colors)
+bars = ax.bar(range(7), vals, color=colors)
 ax.axhline(J["fixed_split"]["FIN"]["roc"], ls="--", c="gray", lw=1)
-ax.text(5.45, 0.635, "FIN baseline", ha="right", fontsize=9, color="gray")
+ax.text(6.45, 0.635, "FIN baseline", ha="right", fontsize=9, color="gray")
 for i, v in enumerate(vals):
     ax.text(i, v + 0.008, f"{v:.3f}", ha="center", fontsize=9)
 ax.set_ylim(0.6, 1.03)
 ax.set_ylabel("Test ROC-AUC")
-ax.set_xticks(range(6))
+ax.set_xticks(range(7))
 ax.set_xticklabels(labels, fontsize=9)
 ax.set_title("Leakage dose-response: one pipeline, increasing reveal-date violations")
 plt.savefig(f"{FIG}/fig1_dose_response.pdf")

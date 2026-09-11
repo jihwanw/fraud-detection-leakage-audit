@@ -104,11 +104,12 @@ Reveal $< t+1$ & {D['t1']:.3f} \\\\
 Reveal $< t+2$ & {D['t2']:.3f} \\\\
 Reveal $< t+3$ & {D['t3']:.3f} \\\\
 All fraud, reveal dates ignored & {D['all']:.3f} \\\\
+Leak-free $+$ own future revelation flag & \\textbf{{{D['self_leak_clean']:.3f}}} \\\\
 All fraud ignored $+$ own future revelation flag & \\textbf{{{D['self_leak']:.3f}}} \\\\
 \\bottomrule
 \\end{{tabular}}
 \\\\[4pt]
-\\begin{{minipage}}{{\\textwidth}}\\footnotesize \\emph{{Note:}} One pipeline, one model (RUSBoost), fixed split, fraud label; only the reveal-date discipline of the exposure feature varies.\\end{{minipage}}
+\\begin{{minipage}}{{\\textwidth}}\\footnotesize \\emph{{Note:}} One pipeline, one model (RUSBoost), fixed split, fraud label. The first five rows vary the reveal-date discipline of the neighbor-exposure feature; the final two rows add the firm's own future revelation flag to the leak-free and reveal-dates-ignored configurations, respectively.\\end{{minipage}}
 \\label{{tab:leak}}
 \\end{{table}}
 """)
