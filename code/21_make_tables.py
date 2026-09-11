@@ -40,7 +40,7 @@ rows_b = "\n".join(
     for y, v in sorted(T.items()))
 w("tab_desc.tex", f"""\\begin{{table}}[H]
 \\centering
-\\caption{{Panel and network description. Panel A: firm-year panel by period (network statistics are annual snapshot averages; fraud-firm counts are firms with fraud revealed before the snapshot year). Panel B: topology of the interlock graph at selected snapshots (density scaled by $10^4$; Giant \\% is the share of nodes in the largest connected component).}}
+\\caption{{Panel and network description.}}
 \\small
 \\textbf{{Panel A: firm-year panel}}\\\\[2pt]
 \\begin{{tabular}}{{lcc}}
@@ -50,7 +50,7 @@ w("tab_desc.tex", f"""\\begin{{table}}[H]
 Firm years in panel & {n(e['firm_years'])} & {n(l['firm_years'])} \\\\
 Connected registrants (avg.\\ snapshot) & {n(np1['avg_firms'])} & {n(np2['avg_firms'])} \\\\
 Interlock edges (avg.\\ snapshot) & {n(np1['avg_edges'])} & {n(np2['avg_edges'])} \\\\
-Past-revealed fraud firms (start $\\to$ end) & {np1['fraud_start']} $\\to$ {np1['fraud_end']} & {np2['fraud_start']} $\\to$ {np2['fraud_end']} \\\\
+Past-revealed fraud firms, cumulative stock (start $\\to$ end) & {np1['fraud_start']} $\\to$ {np1['fraud_end']} & {np2['fraud_start']} $\\to$ {np2['fraud_end']} \\\\
 Fraud-label base rate & {e['base_pct']:.2f}\\% ({e['pos']} pos) & {l['base_pct']:.2f}\\% ({l['pos']} pos) \\\\
 \\bottomrule
 \\end{{tabular}}\\\\[8pt]
@@ -64,6 +64,8 @@ Year & Nodes & Edges & Density & Mean/Max deg. & Clustering & Giant \\% & Compon
 \\bottomrule
 \\end{{tabular}}%
 }}
+\\\\[4pt]
+\\begin{{minipage}}{{\\textwidth}}\\footnotesize \\emph{{Note:}} Panel A reports the firm-year panel by period; network statistics are annual snapshot averages. The past-revealed fraud-firm counts are the \\emph{{cumulative stock}} of firms with a fraud-flagged restatement filed before the snapshot year, counted over the full restatement universe available to the exposure features (whether or not the firm appears in that year's graph). Panel B reports the topology of the interlock graph at selected snapshots; density is scaled by $10^4$, and Giant \\% is the share of nodes in the largest connected component. The Fraud column reports the \\emph{{subset}} of the cumulative stock present as nodes in that year's graph, and is therefore smaller than the Panel A stock.\\end{{minipage}}
 \\label{{tab:desc}}
 \\end{{table}}
 """)
@@ -72,7 +74,7 @@ Year & Nodes & Edges & Density & Mean/Max deg. & Clustering & Giant \\% & Compon
 F, S = J["fixed_split"], J["seeds"]
 w("tab_main.tex", f"""\\begin{{table}}[H]
 \\centering
-\\caption{{Fixed temporal split (train 2004--2017, test 2018--2023; 45 test positives), fraud label. Left: point estimates. Right: increment of FIN$+$NET4 over FIN across ten seeds.}}
+\\caption{{Fixed-split point estimates and seed experiment.}}
 \\begin{{tabular}}{{lcc@{{\\qquad}}lcc}}
 \\toprule
 Feature set & ROC & PR & Model & Mean $\\Delta$ROC & Seed SD \\\\
@@ -82,6 +84,8 @@ FIN$+$NET4 & {F['FIN_NET4']['roc']:.4f} & {F['FIN_NET4']['pr']:.4f} & Grad.\\ bo
 FIN$+$NET7 & {F['FIN_NET7']['roc']:.4f} & {F['FIN_NET7']['pr']:.4f} & Logistic & ${S['logit']['mean']:+.3f}$ & --- \\\\
 \\bottomrule
 \\end{{tabular}}
+\\\\[4pt]
+\\begin{{minipage}}{{\\textwidth}}\\footnotesize \\emph{{Note:}} Fixed temporal split (train 2004--2017, test 2018--2023; 45 test positives), fraud label. Left: point estimates. Right: increment of FIN$+$NET4 over FIN across ten seeds.\\end{{minipage}}
 \\label{{tab:main}}
 \\end{{table}}
 """)
@@ -90,7 +94,7 @@ FIN$+$NET7 & {F['FIN_NET7']['roc']:.4f} & {F['FIN_NET7']['pr']:.4f} & Logistic &
 D = J["dose_response"]
 w("tab_leak.tex", f"""\\begin{{table}}[H]
 \\centering
-\\caption{{Leakage dose-response. One pipeline, one model (RUSBoost), fixed split, fraud label; only the reveal-date discipline of the exposure feature varies.}}
+\\caption{{Leakage dose-response.}}
 \\begin{{tabular}}{{lc}}
 \\toprule
 Exposure feature construction & ROC-AUC \\\\
@@ -103,6 +107,8 @@ All fraud, reveal dates ignored & {D['all']:.3f} \\\\
 $+$ own future revelation flag & \\textbf{{{D['self_leak']:.3f}}} \\\\
 \\bottomrule
 \\end{{tabular}}
+\\\\[4pt]
+\\begin{{minipage}}{{\\textwidth}}\\footnotesize \\emph{{Note:}} One pipeline, one model (RUSBoost), fixed split, fraud label; only the reveal-date discipline of the exposure feature varies.\\end{{minipage}}
 \\label{{tab:leak}}
 \\end{{table}}
 """)
@@ -117,7 +123,7 @@ rows = "\n".join(
     for (wl, el), c in zip(labels, G))
 w("tab_grid_full.tex", f"""\\begin{{table}}[h!]
 \\centering
-\\caption*{{\\textbf{{Supplementary Table S1.}} Full construction grid (fixed split, fraud label, 45 test positives, RUSBoost, seed 42). The FIN baseline varies across window rows because the merged sample changes with network coverage.}}
+\\caption*{{\\textbf{{Supplementary Table S1.}} Full construction grid.}}
 \\begin{{tabular}}{{llccc}}
 \\toprule
 Window & Edges & FIN ROC & FIN$+$NET4 ROC & $\\Delta$ \\\\
@@ -125,6 +131,8 @@ Window & Edges & FIN ROC & FIN$+$NET4 ROC & $\\Delta$ \\\\
 {rows}
 \\bottomrule
 \\end{{tabular}}
+\\\\[4pt]
+\\begin{{minipage}}{{\\textwidth}}\\footnotesize \\emph{{Note:}} Fixed split, fraud label, 45 test positives, RUSBoost, seed 42. The FIN baseline varies across window rows because the merged sample changes with network coverage.\\end{{minipage}}
 \\end{{table}}
 """)
 # ---------------- tab_missing (Supplementary S2) ----------------
@@ -144,7 +152,7 @@ missing_rows = "\n".join(
 )
 w("tab_missing.tex", f"""\\begin{{table}}[h!]
 \\centering
-\\caption*{{\\textbf{{Supplementary Table S2.}} Missing-data specification sensitivity (fixed temporal split, fraud label, RUSBoost, seed 42). Medians are fitted on the training period only. Confidence intervals use 2,000 paired cluster-bootstrap resamples by firm.}}
+\\caption*{{\\textbf{{Supplementary Table S2.}} Missing-data specification sensitivity.}}
 \\small
 \\resizebox{{\\textwidth}}{{!}}{{%
 \\begin{{tabular}}{{lrrrrrr}}
@@ -155,6 +163,8 @@ Method & Test $N$ & Pos. & FIN ROC & FIN$+$NET4 ROC & $\\Delta$ROC & 95\\% CI \\
 \\bottomrule
 \\end{{tabular}}%
 }}
+\\\\[4pt]
+\\begin{{minipage}}{{\\textwidth}}\\footnotesize \\emph{{Note:}} Fixed temporal split, fraud label, RUSBoost, seed 42. Medians are fitted on the training period only. Confidence intervals use 2{{,}}000 paired cluster-bootstrap resamples by firm.\\end{{minipage}}
 \\end{{table}}
 """)
 
