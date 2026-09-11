@@ -48,7 +48,7 @@ w("tab_desc.tex", f"""\\begin{{table}}[H]
  & 2004--2013 & 2014--2024 \\\\
 \\midrule
 Firm years in panel & {n(e['firm_years'])} & {n(l['firm_years'])} \\\\
-Connected registrants (avg.\\ snapshot) & {n(np1['avg_firms'])} & {n(np2['avg_firms'])} \\\\
+Registrants in graph (avg.\\ snapshot) & {n(np1['avg_firms'])} & {n(np2['avg_firms'])} \\\\
 Interlock edges (avg.\\ snapshot) & {n(np1['avg_edges'])} & {n(np2['avg_edges'])} \\\\
 Past-revealed fraud firms, cumulative stock (start $\\to$ end) & {np1['fraud_start']} $\\to$ {np1['fraud_end']} & {np2['fraud_start']} $\\to$ {np2['fraud_end']} \\\\
 Fraud-label base rate & {e['base_pct']:.2f}\\% ({e['pos']} pos) & {l['base_pct']:.2f}\\% ({l['pos']} pos) \\\\
@@ -104,7 +104,7 @@ Reveal $< t+1$ & {D['t1']:.3f} \\\\
 Reveal $< t+2$ & {D['t2']:.3f} \\\\
 Reveal $< t+3$ & {D['t3']:.3f} \\\\
 All fraud, reveal dates ignored & {D['all']:.3f} \\\\
-$+$ own future revelation flag & \\textbf{{{D['self_leak']:.3f}}} \\\\
+All fraud ignored $+$ own future revelation flag & \\textbf{{{D['self_leak']:.3f}}} \\\\
 \\bottomrule
 \\end{{tabular}}
 \\\\[4pt]
