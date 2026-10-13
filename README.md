@@ -1,7 +1,7 @@
 # Does the Boardroom Network Predict Corporate Fraud?
 ## A Leakage-Controlled Evaluation with a Cautionary Demonstration — Replication & Audit Pipeline
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22271884.svg)](https://doi.org/10.5281/zenodo.22271884)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23332214.svg)](https://doi.org/10.5281/zenodo.23332214)
 
 This repository contains the replication pipeline for *Does the Boardroom
 Network Predict Corporate Fraud? A Leakage-Controlled Evaluation with a
@@ -127,8 +127,9 @@ the submitted canonical results without redistributing trial rows.
 ## Citation
 
 Woo, Jihwan. (2026). *fraud-detection-leakage-audit: Leakage-controlled
-evaluation pipeline for network-based fraud detection* (v1.0.0). Zenodo.
-https://doi.org/10.5281/zenodo.22271884
+evaluation pipeline for network-based fraud detection* (v1.1.2). Zenodo.
+https://doi.org/10.5281/zenodo.23332214 (version of record for the Scientific Reports manuscript; empirical scripts identical to v1.1.0).
+Concept DOI (all versions): https://doi.org/10.5281/zenodo.22271883. Initial snapshot v1.0.0: https://doi.org/10.5281/zenodo.22271884.
 
 ## License
 
