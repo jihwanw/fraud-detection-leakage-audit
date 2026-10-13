@@ -1,11 +1,14 @@
-# Does the Boardroom Network Predict Corporate Fraud?
-## A Leakage-Controlled Evaluation with a Cautionary Demonstration — Replication & Audit Pipeline
+# Board interlock features add a small and specification-sensitive increment to leakage-controlled corporate fraud prediction
+## Replication & Audit Pipeline
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23332214.svg)](https://doi.org/10.5281/zenodo.23332214)
 
-This repository contains the replication pipeline for *Does the Boardroom
+This repository contains the replication pipeline for *Board interlock
+features add a small and specification-sensitive increment to
+leakage-controlled corporate fraud prediction* (Jihwan Woo; Scientific Reports,
+under review; earlier revisions circulated under the title *Does the Boardroom
 Network Predict Corporate Fraud? A Leakage-Controlled Evaluation with a
-Cautionary Demonstration* (under review). It reconstructs every empirical
+Cautionary Demonstration*). It reconstructs every empirical
 result from licensed source data and public data, and provides a reusable
 leakage-audit template for network-based fraud-detection research.
 
