@@ -1,7 +1,7 @@
 # Board interlock features add a small and specification-sensitive increment to leakage-controlled corporate fraud prediction
 ## Replication & Audit Pipeline
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23332214.svg)](https://doi.org/10.5281/zenodo.23332214)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23333568.svg)](https://doi.org/10.5281/zenodo.23333568)
 
 This repository contains the replication pipeline for *Board interlock
 features add a small and specification-sensitive increment to
@@ -130,8 +130,8 @@ the submitted canonical results without redistributing trial rows.
 ## Citation
 
 Woo, Jihwan. (2026). *fraud-detection-leakage-audit: Leakage-controlled
-evaluation pipeline for network-based fraud detection* (v1.1.2). Zenodo.
-https://doi.org/10.5281/zenodo.23332214 (version of record for the Scientific Reports manuscript; empirical scripts identical to v1.1.0).
+evaluation pipeline for network-based fraud detection* (v1.1.3). Zenodo.
+https://doi.org/10.5281/zenodo.23333568 (version of record for the Scientific Reports manuscript; empirical scripts identical to v1.1.0).
 Concept DOI (all versions): https://doi.org/10.5281/zenodo.22271883. Initial snapshot v1.0.0: https://doi.org/10.5281/zenodo.22271884.
 
 ## License
