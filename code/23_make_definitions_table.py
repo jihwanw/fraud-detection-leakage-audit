@@ -3,16 +3,17 @@
 editor request 2026-10-13): how each key concept was defined, the source of the
 definition, and where it is applied in the study.
 
-Two fragments are written from the same row list so the main text and the
-Supplementary Information carry identical content:
-  tab_defs.tex       main text (natbib \\citep keys; \\ref cross-references)
-  tab_defs_supp.tex  Supplementary Table S3 (plain-text sources; literal numbers)
+Two fragments are written from the same row list (same 33 concepts, same order, numbered):
+  tab_defs.tex       main text, one page (sidewaystable): short definition, short source, where applied
+  tab_defs_supp.tex  Supplementary Table S3 (longtable): full operational definitions, full sources
+The "where applied" column is shared verbatim; the short definitions are abbreviations of the full ones.
 
 Every numeric value comes from results/paper_numbers.json; nothing is typed by hand.
 Usage: 23_make_definitions_table.py [out_dir]   (default: paper/tables)
 """
 import json
 import os
+import re
 import sys
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,6 +49,8 @@ CITE = {
     "sklearn": (r"scikit-learn\citep{pedregosa2011scikit}", "scikit-learn (Pedregosa et al., 2011)"),
     "imblearn": (r"imbalanced-learn\citep{lemaitre2017imbalanced}", "imbalanced-learn (Lema\\^{i}tre et al., 2017)"),
     "fuller": (r"Fuller\citep{fuller1987measurement}", "Fuller (1987)"),
+    "feed_short": (r"WRDS feed 39\citep{auditanalytics_feed39}", "WRDS feed 39"),
+    "software": (r"software\citep{pedregosa2011scikit,lemaitre2017imbalanced}", "software"),
     "study": ("This study", "This study"),
 }
 
@@ -169,32 +172,152 @@ def rows(main: bool):
     ]
 
 
-HEADER = r"""\begin{longtable}{>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{6.5cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.6cm}}
-"""
+def compact_rows():
+    """Short form for the one-page main-text table: (concept, one-line definition, short source).
+    Order and count must match rows(); the 'where applied' column is taken from rows(True).
+    Role labels on sources and the full wording are in rows() (Supplementary Table S3)."""
+    c = {k: v[0] for k, v in CITE.items()}
+    return [
+        ("Fraud (conceptual)",
+         "Intentional act causing a material financial-statement misstatement, by fraudulent reporting or misappropriation (AS~2401 paras.~5--6; ISA~240 para.~11(a)); the standards set the scope, not case-level intent, materiality or liability.",
+         f"{c['pcaob']}; {c['isa']}"),
+        ("Fraud-flagged restatement",
+         f"Feed-39 record with \\texttt{{res\\_fraud}}=1 (intentional manipulation or misappropriation); {n(R['res_fraud'])} filings, {R['res_fraud_pct_of_restatements']:.1f} percent of restatements; other flags do not qualify a record.",
+         f"{c['aa_cat']}; {c['feed_short']}; {c['study']}"),
+        ("Positive firm year",
+         f"$y_{{c,t}}=1$ when a fraud-flagged restatement of $c$ has $b \\le t \\le e$ and filing year $f>t$; {n(P['fraud_pos'])} positives of {n(P['firm_years'])} firm years.",
+         f"{c['dechow']}; {c['study']}"),
+        ("Negative firm year",
+         "$y_{c,t}=0$: no qualifying spell; absence of a flagged restatement, not verified absence of misconduct (one-sided label noise).",
+         c["study"]),
+        ("Observed prevalence",
+         f"Base rate: positives divided by firm years for the stated outcome and sample ({pct_fraud} percent: primary outcome, full panel).",
+         c["study"]),
+        ("Broad outcome",
+         f"Same three conditions with \\texttt{{res\\_fraud}}=1 or \\texttt{{res\\_sec\\_investigation}}=1; {n(P['broad_pos'])} positives; reported separately.",
+         c["study"]),
+        ("AAER outcome",
+         f"Accounting-restatement spell covering $t$, filed after $t$, at a firm name-matched to an SEC AAER; {n(A['pos'])} positives.",
+         f"{c['dechow']}; {c['study']}"),
+        ("Timing: $t$, $[b,e]$, $f$",
+         "$t$: fiscal year predicted; $b,e$: years of \\texttt{res\\_begin\\_date}, \\texttt{res\\_end\\_date}; $f$: year of \\texttt{file\\_date}.",
+         f"{c['feed_short']}; {c['study']}"),
+        ("Revealed",
+         "A fraud-flagged restatement is public from its filing year $f$; no other revelation channel is used.",
+         c["study"]),
+        ("CIK",
+         "SEC Central Index Key linking restatement, financial, director and enforcement records.",
+         f"SEC EDGAR; {c['study']}"),
+        ("$F_t$",
+         "Firms whose first fraud-flagged restatement was filed before $t$; only these enter year-$t$ exposure features.",
+         c["study"]),
+        ("$F_\\infty$",
+         "All firms with a fraud-flagged restatement anywhere in the database; $\\mathbf{1}[c\\in F_\\infty]$ uses revelations unavailable at $t$.",
+         c["study"]),
+        ("Interlock network $G_t$",
+         "Registrants joined when one person holds board links to both within $[t-w,\\,t]$ ($w=4$ baseline); the weighted variant counts shared persons.",
+         c["study"]),
+        ("Graph statistics",
+         "Degree $|N_t(c)|$ (weighted: $\\sum w_{cc'}$); PageRank (damping 0.85); density $2|E_t|/[|V_t|(|V_t|-1)]$; mean local clustering $2T_c/[k_c(k_c-1)]$, zero for $k_c<2$; giant-component share.",
+         f"{c['networkx']}; {c['study']}"),
+        ("Fraud exposure; NET4",
+         "Count $|N_t(c)\\cap F_t|$ and ratio $|N_t(c)\\cap F_t|/|N_t(c)|$ (zero if isolated), with degree and PageRank.",
+         c["study"]),
+        ("NET7",
+         "NET4 plus the two-hop exposure ratio (distance exactly two; zero if empty) and the count and share of active board members linked to an $F_t$ firm by its revelation year (share over distinct persons; zero if none).",
+         c["study"]),
+        ("Financial baseline (FIN)",
+         "28 Compustat predictors (Bao et al.\\ after Cecchini et al.), scaled by total assets (log of assets), missing items zero-filled; learner as specified per experiment.",
+         f"{c['bao']}; {c['cecchini']}; {c['study']}"),
+        ("F-score",
+         "Dechow et al.\\ misstatement-risk score; a literature benchmark, not a predictor here and not the F1 metric.",
+         c["dechow"]),
+        ("Learners",
+         "RUSBoost (trees, \\texttt{min\\_samples\\_leaf}=5; 300 rounds; rate 0.1; seed 42); balanced histogram gradient boosting; class-weighted L2 logistic regression on standardized predictors; no synthetic oversampling or test rebalancing.",
+         f"{c['seiffert']}; {c['software']}; {c['study']}"),
+        ("Network increment",
+         "$\\Delta$ROC-AUC: test ROC-AUC of the augmented model minus its matched baseline (FIN or FIN$+$SIC), other factors fixed.",
+         c["study"]),
+        ("Leak-free estimate",
+         "An estimate under the four rules of Sect.~4.1 (features from $F_t$; labels with $f>t$; temporal split; metrics on the original test distribution).",
+         f"{c['kaufman']}; {c['kapoor']}; {c['study']}"),
+        ("Leakage",
+         "Use of information unavailable at prediction time, through features (target leakage) or non-temporal evaluation.",
+         f"{c['kaufman']}; {c['kapoor']}"),
+        ("Leaked estimate",
+         f"Same pipeline with reveal-date discipline relaxed: neighbor filings admitted for $f<t+h$ ($h=1,2,3$) or regardless of date, or the own-firm indicator $\\mathbf{{1}}[c\\in F_\\infty]$ added (ROC-AUC {Z['self_leak_clean']:.3f} against {Z['clean']:.3f}).",
+         c["study"]),
+        ("Leakage ladder; rung",
+         "Seven configurations of Sect.~6 with increasing reveal-date violations, each compared with the ladder's own leak-free rung.",
+         c["study"]),
+        ("Temporal evaluation",
+         f"Train 2004--2017, test 2018--2023 ($N={n(M['test_rows'])}$; {M['test_positives']} positives); rolling-origin windows; no random cross-validation.",
+         f"{c['dechow']}; {c['study']}"),
+        ("Rare-event metrics",
+         "ROC-AUC; PR-AUC (average precision); precision in the top one percent ($k=\\lfloor 0.01N_{\\mathrm{test}}\\rfloor$ by \\texttt{argsort} of the negated score, no tie adjustment); accuracy and F1 not used.",
+         f"{c['saito']}; {c['sklearn']}; {c['study']}"),
+        ("Industry controls",
+         "FIN$+$SIC (one-digit dummies), FIN$+$SIC$+$NET4, or industry-adjusted exposure (fraud-neighbor ratio minus its SIC$\\times$year mean) with degree and PageRank.",
+         c["study"]),
+        ("Industry-period risk set",
+         "Evaluation within firms sharing industry-period conditions; proposed, not implemented.",
+         c["study"]),
+        ("Construction grid",
+         "$w\\in\\{3,4,5\\}$ crossed with unweighted and weighted edges; the increment re-estimated in each cell on its merged sample.",
+         c["study"]),
+        ("Person identification; homonyms",
+         f"Directors matched by normalized full name; a homonym merger is distinct people under one key ({n(J['name_matching']['names_5plus_firms'])} of {n(J['name_matching']['names'])} names at five or more firms, a diagnostic); strictness: baseline, drop such names, require a middle name.",
+         c["study"]),
+        ("Attenuation; reliability ratio",
+         "Shrinkage toward zero under classical additive error; $\\lambda=\\mathrm{Var}(X^{*})/[\\mathrm{Var}(X^{*})+\\mathrm{Var}(U)]$ is the slope-attenuation factor in linear regression, not a ROC-AUC correction; not estimated here.",
+         f"{c['fuller']}; {c['study']}"),
+        ("Inference",
+         f"{n(BOOT)} firm-cluster bootstrap resamples scoring both models on the same resample, 2.5th--97.5th percentiles (skipped below five positives); {S['n']} seeds; detectable increment $2.80\\times$ s.e., s.e.\\ $=$ (upper $-$ lower)$/3.92$.",
+         c["study"]),
+        ("Missing data",
+         "Zero-fill (primary); train-only median; median with missingness indicators; complete cases.",
+         f"{c['bao']}; {c['study']}"),
+    ]
+
+COMMON = (r"Counts refer to the source-data universe or analysis subset identified in each row; methodological settings describe the stated specifications. "
+          r"Sources marked ``This study'' identify study-specific operational definitions or choices; cited works supply the concept, practice or implementation adopted, as labeled. "
+          r"Cross-references point to the main text unless marked Supplementary.")
 
 
-def body(main: bool):
-    out = []
-    for c, d, s, w in rows(main):
-        out.append(f"{c} & {d} & {s} & {w} \\\\\n\\addlinespace")
-    return "\n".join(out)
+def fragment_main():
+    """One-page compact table on a dedicated landscape page (pdflscape; 0.55in margins), rows numbered as in Supplementary Table S3."""
+    full = rows(True); short = compact_rows()
+    assert len(full) == len(short) == 33, (len(full), len(short))
+    cap = (r"\caption{Key concepts of the study: short definition, source of the definition, and where each is applied. "
+           r"Supplementary Table~S3 gives the full operational definition and full source of each row, numbered and ordered as here, together with the conventions for counts and cross-references. "
+           r"``This study'' marks a study-specific operational definition or choice; cited works supply the concept, practice or implementation adopted.}\label{tab:defs}")
+    lines = []
+    strip = re.compile(r" \((?:Eq\.~\d+|Panel [A-Z]|first row|rules? [\d\-]+)\)")  # detail kept in Supplementary Table S3
+    for k, ((_, _, _, applied), (concept, sdef, ssrc)) in enumerate(zip(full, short), start=1):
+        w = strip.sub('', applied).replace("Table~\\ref{tab:desc}, Table~\\ref{tab:main}", "Tables~\\ref{tab:desc}, \\ref{tab:main}").replace("Fig.~\\ref{fig:rolling}, Fig.~\\ref{fig:decomp}", "Figs.~\\ref{fig:rolling}, \\ref{fig:decomp}")
+        lines.append(f"{k} & {concept} & {sdef} & {ssrc} & {w} \\\\")
+    return ("\\newgeometry{margin=0.55in}\n\\begin{landscape}\n\\begin{table}[tbp]\n\\centering\n\\fontsize{7}{8}\\selectfont\n\\setlength{\\tabcolsep}{3pt}\n" + cap + "\n"
+            "\\begin{tabular}{>{\\raggedleft\\arraybackslash}p{0.45cm}>{\\raggedright\\arraybackslash}p{2.9cm}>{\\raggedright\\arraybackslash}p{14.2cm}>{\\raggedright\\arraybackslash}p{4.0cm}>{\\raggedright\\arraybackslash}p{4.0cm}}\n"
+            "\\toprule No. & Concept & Definition in this study (short form) & Source & Where applied \\\\ \\midrule\n" + "\n".join(lines) + "\n\\bottomrule\n\\end{tabular}\n\\end{table}\n\\end{landscape}\n\\restoregeometry\n")
 
 
-def fragment(main: bool):
-    common = (r"Counts refer to the source-data universe or analysis subset identified in each row; methodological settings describe the stated specifications. "
-              r"Sources marked ``This study'' identify study-specific operational definitions or choices; cited works supply the concept, practice or implementation adopted, as labeled. "
-              r"Cross-references point to the main text unless marked Supplementary.")
-    cap_main = r"\caption{Key concepts of the study: definition, source of the definition, and where each is applied. " + common + r"}\label{tab:defs}\\"
-    cap_supp = (r"\caption*{\textbf{Supplementary Table S3.} Key concepts of the study: definition, source of the definition, and where each is applied; the row content reproduces Table~3 of the main text with sources given as author--year or standard identifiers. "
-                + common + r"}\\")
-    head = r"\toprule Concept & Definition in this study & Source & Where applied \\ \midrule \endfirsthead" + "\n" + \
-           r"\multicolumn{4}{l}{\footnotesize\emph{(continued)}}\\ \toprule Concept & Definition in this study & Source & Where applied \\ \midrule \endhead" + "\n" + \
-           r"\midrule \multicolumn{4}{r}{\footnotesize\emph{continued on next page}}\\ \endfoot" + "\n" + r"\bottomrule \endlastfoot" + "\n"
-    return "{\\footnotesize\n" + HEADER + (cap_main if main else cap_supp) + "\n" + head + body(main) + "\n\\end{longtable}}\n"
+def fragment_supp():
+    """Full definitions, longtable, same numbering."""
+    cap = (r"\caption*{\textbf{Supplementary Table S3.} Key concepts of the study: full operational definition, source of the definition, and where each is applied. "
+           r"Rows are numbered and ordered as in Table~3 of the main text, which gives the short form; sources are given as author--year or standard identifiers. " + COMMON + r"}\\")
+    head = r"\toprule No. & Concept & Definition in this study & Source & Where applied \\ \midrule \endfirsthead" + "\n" + \
+           r"\multicolumn{5}{l}{\footnotesize\emph{(continued)}}\\ \toprule No. & Concept & Definition in this study & Source & Where applied \\ \midrule \endhead" + "\n" + \
+           r"\midrule \multicolumn{5}{r}{\footnotesize\emph{continued on next page}}\\ \endfoot" + "\n" + r"\bottomrule \endlastfoot" + "\n"
+    lines = []
+    for k, (c, d, s, w) in enumerate(rows(False), start=1):
+        lines.append(f"{k} & {c} & {d} & {s} & {w} \\\\\n\\addlinespace")
+    return ("{\\footnotesize\n\\setlength{\\tabcolsep}{4pt}\n"
+            "\\begin{longtable}{>{\\raggedleft\\arraybackslash}p{0.6cm}>{\\raggedright\\arraybackslash}p{2.4cm}>{\\raggedright\\arraybackslash}p{6.2cm}>{\\raggedright\\arraybackslash}p{2.6cm}>{\\raggedright\\arraybackslash}p{2.6cm}}\n"
+            + cap + "\n" + head + "\n".join(lines) + "\n\\end{longtable}}\n")
 
 
-for name, main in (("tab_defs.tex", True), ("tab_defs_supp.tex", False)):
+for name, fn in (("tab_defs.tex", fragment_main), ("tab_defs_supp.tex", fragment_supp)):
     with open(f"{OUT}/{name}", "w") as f:
         f.write("% AUTO-GENERATED by code/23_make_definitions_table.py from results/paper_numbers.json\n"
-                "% DO NOT EDIT BY HAND — regenerate instead.\n" + fragment(main))
+                "% DO NOT EDIT BY HAND — regenerate instead.\n" + fn())
     print("wrote", f"{OUT}/{name}")
